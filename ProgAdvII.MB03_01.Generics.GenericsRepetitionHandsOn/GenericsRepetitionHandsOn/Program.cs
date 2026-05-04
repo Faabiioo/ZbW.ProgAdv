@@ -1,6 +1,9 @@
-﻿namespace GenericsRepetitionHandsOn {
-    internal class Program {
-        private static void Main(string[] args) {
+﻿namespace GenericsRepetitionHandsOn
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
             // UseCase: Pipeline-basierte Datenverarbeitung
 
             Console.WriteLine("=== Aufgabe 1: Object-Pipeline reparieren ===");
@@ -56,11 +59,13 @@
         }
     }
 
-    public class Person {
+    public class Person
+    {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return $"{Name} ({Id})";
         }
     }
@@ -69,24 +74,31 @@
     // Aufgabe 1: Object-basierte Variante
     // =====================================================
 
-    public interface IProcessorObject {
+    public interface IProcessorObject
+    {
         object Process(object input);
     }
 
-    public class ParseIntObjectStep : IProcessorObject {
-        public object Process(object input) {
+    public class ParseIntObjectStep : IProcessorObject
+    {
+        public object Process(object input)
+        {
             return int.Parse((string)input);
         }
     }
 
-    public class DoubleObjectStep : IProcessorObject {
-        public object Process(object input) {
+    public class DoubleObjectStep : IProcessorObject
+    {
+        public object Process(object input)
+        {
             return (int)input * 2;
         }
     }
 
-    public class FormatObjectStep : IProcessorObject {
-        public object Process(object input) {
+    public class FormatObjectStep : IProcessorObject
+    {
+        public object Process(object input)
+        {
             return $"Value: {input}";
         }
     }
@@ -95,14 +107,43 @@
     // =====================================================
     // Aufgabe 2: Generische Variante
     // =====================================================
+    public interface IProcessor<TInput, TOutput>
+    {
+        TOutput Process(TInput input);
+    }
 
+    public class ParseIntStep : IProcessor<string, int>
+    {
+        public int Process(string input)
+        {
+            return int.Parse(input);
+        }
+    }
+
+    public class DoubleStep : IProcessor<int, int>
+    {
+        public int Process(int input)
+        {
+            return input * 2;
+        }
+    }
+
+    public class FormatStep : IProcessor<object, string>
+    {
+        public string Process(object input)
+        {
+            return $"Value: {input}";
+        }
+    }
 
 
     // =====================================================
     // Aufgabe 3: SortStep
     // =====================================================
-    public class SortStep<T> {
-        public void Sort(List<T> list) {
+    public class SortStep<T>
+    {
+        public void Sort(List<T> list)
+        {
             list.Sort();
         }
     }
